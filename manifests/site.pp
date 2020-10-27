@@ -31,5 +31,5 @@ node 'mon.node.consul' {
 }
 
 node 'web.node.consul' {
-  include ::role::web_server
+  include ::role::webserver
 }
