@@ -1,4 +1,4 @@
-class serverRepo {
+class profile::webserver::serverRepo {
     vcsrepo { '/home/ubuntu ':
         ensure => present,
         providet => git,
