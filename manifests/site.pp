@@ -11,7 +11,7 @@ node /dc2/ {
 }
 
 node /srv[1-9]?/ {
-  include ::role::domain_joined_server
+  include ::role::directory_server
 }
 
 node /cl\d?/ {
