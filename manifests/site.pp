@@ -29,3 +29,7 @@ node 'dir.node.consul' {
 node 'mon.node.consul' {
   include ::role::monitoring_server
 }
+
+node 'web.node.consul' {
+  include ::role::web_server
+}
