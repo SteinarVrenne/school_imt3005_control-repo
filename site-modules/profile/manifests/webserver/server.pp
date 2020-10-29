@@ -21,10 +21,9 @@ class profile::webserver::server {
     }
 
     # Start the server 
-    exec { '/usr/bin/npm start':
+    exec { '/usr/bin/npm run build && /usr/bin/node src/server/index.js':
         path => '/home/ubuntu/website-repo',
         user => 'root',
         require => Nodejs::Npm['serverapp'],
     }
-
 }
