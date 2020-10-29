@@ -31,11 +31,11 @@ pipelines:
 #        script:
 #          - puppet-lint site-modules/*/manifests/*.pp
 #          - puppet-lint manifests/site.pp
-#    - step:
-#        name: 'Validate'
-#        script:
-#          - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
-#          - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
+    - step:
+        name: 'Validate'
+        script:
+          - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
+          - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
 #    - step:
 #        name: 'Test'
 #        script:
