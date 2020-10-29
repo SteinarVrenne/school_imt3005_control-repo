@@ -6,7 +6,9 @@ class profile::webserver::server {
         revision => 'master',
     }
 
-    class { 'nodejs':
+    class { 'nodejs' : }
+
+    class { '::nodejs':
         manage_package_repo       => false,
         nodejs_dev_package_ensure => 'present',
         npm_package_ensure        => 'present',
@@ -16,7 +18,6 @@ class profile::webserver::server {
         ensure           => 'present',
         target           => '/home/ubuntu/website-repo',
         use_package_json => true,   
-        require => Vcsrepo['/home/ubuntu'],
-        require => Class['::nodejs'],
+        require => [ Vcsrepo['/home/ubuntu'],Class['nodejs'] ],
     }
 }
