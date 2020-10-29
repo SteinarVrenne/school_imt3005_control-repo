@@ -23,8 +23,8 @@ pipelines:
           - dpkg -i "$tempdeb"
           - apt update -y
 #          - apt-get -y install puppetserver git pwgen
-          - apt install puppetserver
-          - apt install puppet-lint
+          - apt install puppetserver -y
+          - apt install puppet-lint -y
 #          - /opt/puppetlabs/bin/puppet --verion
 
 #    - step:
