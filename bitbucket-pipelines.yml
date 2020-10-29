@@ -6,20 +6,19 @@ image: ubuntu
 
 pipelines:
   default:
-    - parallel:
-      - step:
-          name: 'Build and Test'
-          script:
-            - apt update -y
-            - apt-get install puppetserver
-      - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
-      - step:
-          name: 'Security scan'
-          script:
-            - echo "Your security scan goes here..."
+    - step:
+        name: 'Build and Test'
+        script:
+          - apt update -y
+          - apt-get install puppet-agent
+    - step:
+        name: 'Lint'
+        script:
+          - echo "Your linting goes here..."
+    - step:
+        name: 'Security scan'
+        script:
+          - echo "Your security scan goes here..."
 
     # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
     - step:
