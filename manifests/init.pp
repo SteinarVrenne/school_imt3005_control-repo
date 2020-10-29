@@ -1,4 +1,4 @@
-class(
+class puppetdb(
     $database_url = 'localhost:5432'
 ){
     include::postgresql
