@@ -1,14 +1,12 @@
 class profile::webserver::server {
-    vcsrepo { '/home/ubuntu':
+    vcsrepo { '/home/ubuntu/':
         ensure => present,
         provider => git,
         source => 'https://bitbucket.org/SteinarVrenne/website-repo.git',
         revision => 'master',
     }
 
-    class { 'nodejs' : }
-
-    class { '::nodejs':
+    class { 'nodejs':
         manage_package_repo       => false,
         nodejs_dev_package_ensure => 'present',
         npm_package_ensure        => 'present',
