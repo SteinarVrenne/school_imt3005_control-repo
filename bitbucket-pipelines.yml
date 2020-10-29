@@ -25,9 +25,9 @@ pipelines:
           - apt install puppet-lint -y
           - /opt/puppetlabs/bin/puppet --version
           # Lint
-          - which puppet-lint
-          #- /opt/puppetlabs/bin/puppet-lint site-modules/*/manifests/*.pp
-          #- /opt/puppetlabs/bin/puppet-lint manifests/site.pp
+          #- which puppet-lint
+          - /usr/bin/puppet-lint site-modules/*/manifests/*.pp
+          - /usr/bin/puppet-lint manifests/site.pp
           # Validate
           - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
           - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
