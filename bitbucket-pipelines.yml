@@ -7,7 +7,7 @@ image: ubuntu
 pipelines:
   default:
     - step:
-        name: 'Build'
+        name: 'Build and validation of puppet files'
         script:
           - apt update -y
           - apt install wget -y
@@ -26,16 +26,13 @@ pipelines:
           - apt install puppetserver -y
           - apt install puppet-lint -y
           - /opt/puppetlabs/bin/puppet --version
+          - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
+          - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
 #    - step:
 #        name: 'Lint'
 #        script:
 #          - puppet-lint site-modules/*/manifests/*.pp
 #          - puppet-lint manifests/site.pp
-    - step:
-        name: 'Validate'
-        script:
-          - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
-          - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
 #    - step:
 #        name: 'Test'
 #        script:
