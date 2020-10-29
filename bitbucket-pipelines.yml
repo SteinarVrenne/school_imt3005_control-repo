@@ -7,11 +7,10 @@ image: ubuntu
 pipelines:
   default:
     - step:
-        name: 'Build and validation of puppet files'
+        name: 'Build and validation of pp files'
         script:
           - apt update -y
           - apt install wget -y
-#          - apt install puppet -y
           - ls
           - export DEBIAN_FRONTEND=noninteractive
           - tempdeb=$(mktemp /tmp/debpackage.XXXXXXXXXXXXXXXXXX) || exit 1
@@ -22,10 +21,13 @@ pipelines:
           - if [ "$ret" -ne "0" ]; then exit 1003; fi
           - dpkg -i "$tempdeb"
           - apt update -y
-#          - apt-get -y install puppetserver git pwgen
           - apt install puppetserver -y
           - apt install puppet-lint -y
           - /opt/puppetlabs/bin/puppet --version
+          # Lint
+          - /opt/puppetlabs/bin/puppet-lint site-modules/*/manifests/*.pp
+          - /opt/puppetlabs/bin/puppet-lint manifests/site.pp
+          # Validate
           - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
           - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
 #    - step:
