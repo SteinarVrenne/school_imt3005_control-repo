@@ -9,9 +9,8 @@ pipelines:
     - step:
         name: 'Build and Test'
         script:
-          - sudo su
           - apt update -y
-          - apt install puppetserver -y
+          - apt install puppet
     - step:
         name: 'Lint'
         script:
