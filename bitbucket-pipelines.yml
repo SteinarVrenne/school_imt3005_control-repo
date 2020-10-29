@@ -7,28 +7,35 @@ image: ubuntu
 pipelines:
   default:
     - step:
-        name: 'Build and Test'
+        name: 'Build'
         script:
           - apt update -y
           - apt install puppet -y
     - step:
         name: 'Lint'
         script:
-          - echo "Your linting goes here..."
+          - puppet-lint site-modules/*/manifests/*.pp
+          - puppet-lint manifests/site.pp
     - step:
-        name: 'Security scan'
+        name: 'Validate'
         script:
-          - echo "Your security scan goes here..."
-
-    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
-    - step:
-        name: 'Deployment to Staging'
-        deployment: staging
-        script:
-          - echo "Your deployment to staging script goes here..."
-    - step:
-        name: 'Deployment to Production'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - echo "Your deployment to production script goes here..."
+          - puppet parser validate site-modules/*/manifests/*.pp
+          - puppet parser validate manifests/site.pp
+#    - step:
+#        name: 'Test'
+#        script:
+#          - echo "Your security scan goes here..."
+#
+#    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+#    - step:
+#        name: 'Deployment to Staging'
+#        deployment: staging
+#        script:
+#          - echo "Your deployment to staging script goes here..."
+#    - step:
+#        name: 'Deployment to Production'
+#        deployment: production
+#        trigger: 'manual'
+#        script:
+#          - echo "Your deployment to production script goes here..."
+#
