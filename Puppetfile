@@ -58,3 +58,6 @@ mod 'puppet-unattended_upgrades', '4.0.0'
 
 # NodeJS
 mod 'puppet-nodejs', '8.1.0'
+
+# Docker
+mod 'puppetlabs-docker', '3.12.1'

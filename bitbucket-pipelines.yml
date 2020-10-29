@@ -9,19 +9,31 @@ pipelines:
     - step:
         name: 'Build'
         script:
-          - apt update -y
-          - apt install puppet -y
-          - puppet --verion 
+#          - apt update -y
+#          - apt install puppet -y
+          - ls
+          - export DEBIAN_FRONTEND=noninteractive
+          - tempdeb=$(mktemp /tmp/debpackage.XXXXXXXXXXXXXXXXXX) || exit 1
+          - i=0;
+          - wget -O "$tempdeb" https://apt.puppetlabs.com/puppet6-release-bionic.deb
+          - ret="$?"
+          - while [ "$i" -lt "5" ] && [ "$ret" -ne "0" ]; do wget -O "$tempdeb" https://apt.puppetlabs.com/puppet6-release-bionic.deb ; ret="$?" ; let "i++" done
+          - [ "$ret" -ne "0" ] && exit 1003
+          - dpkg -i "$tempdeb"
+          - apt-get update -y
+          - apt-get -y install puppetserver git pwgen
+          - /opt/puppetlabs/bin/puppet --verion
+
 #    - step:
 #        name: 'Lint'
 #        script:
 #          - puppet-lint site-modules/*/manifests/*.pp
 #          - puppet-lint manifests/site.pp
-    - step:
-        name: 'Validate'
-        script:
-          - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
-          - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
+#    - step:
+#        name: 'Validate'
+#        script:
+#          - /opt/puppetlabs/bin/puppet parser validate site-modules/*/manifests/*.pp
+#          - /opt/puppetlabs/bin/puppet parser validate manifests/site.pp
 #    - step:
 #        name: 'Test'
 #        script:
