@@ -25,7 +25,7 @@ pipelines:
 #          - apt-get -y install puppetserver git pwgen
           - apt install puppetserver -y
           - apt install puppet-lint -y
-          - /opt/puppetlabs/bin/puppet --verion
+          - /opt/puppetlabs/bin/puppet --version
 #    - step:
 #        name: 'Lint'
 #        script:
