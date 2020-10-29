@@ -22,7 +22,8 @@ pipelines:
           - if [ "$ret" -ne "0" ]; then exit 1003; fi
           - dpkg -i "$tempdeb"
 #          - apt-get -y install puppetserver git pwgen
-          - which puppet
+          - apt install puppetserver
+          - apt install puppet-lint
 #          - /opt/puppetlabs/bin/puppet --verion
 
 #    - step:
