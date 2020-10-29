@@ -11,6 +11,7 @@ pipelines:
         script:
           - apt update -y
           - apt install puppet -y
+          - puppet --verion 
 #    - step:
 #        name: 'Lint'
 #        script:
