@@ -23,11 +23,6 @@ class profile::webserver::server {
     # Start the server 
     exec { '/opt/bin/npm start':
         path => '/home/ubuntu/website-repo',
-        require => Nodejs::Npm['serverapp'],
-    }
-
-    exec { '/opt/bin/npm start':
-        path => '/home/ubuntu/website-repo',
         user => 'root',
         require => Nodejs::Npm['serverapp'],
     }
