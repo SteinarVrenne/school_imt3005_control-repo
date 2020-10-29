@@ -2,20 +2,8 @@ node default {
   notify { "Oops Default! I'm ${facts['hostname']}": }
 }
 
-node /dc1/ {
-  include ::role::first_dc
-}
-
-node /dc2/ {
-  include ::role::domain_joined_server
-}
-
-node /srv[1-9]?/ {
+node /srv[1-12]?/ {
   include ::role::directory_server
-}
-
-node /cl\d?/ {
-  include ::role::domain_joined_client
 }
 
 node 'manager.node.consul' {

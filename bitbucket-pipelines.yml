@@ -1,0 +1,41 @@
+# This is an example Starter pipeline configuration
+# Use a skeleton to build, test and deploy using manual and parallel steps
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: ubuntu
+
+pipelines:
+  default:
+    - step:
+        name: 'Build'
+        script:
+          - apt update -y
+          - apt install puppet -y
+    - step:
+        name: 'Lint'
+        script:
+          - puppet-lint site-modules/*/manifests/*.pp
+          - puppet-lint manifests/site.pp
+    - step:
+        name: 'Validate'
+        script:
+          - puppet parser validate site-modules/*/manifests/*.pp
+          - puppet parser validate manifests/site.pp
+#    - step:
+#        name: 'Test'
+#        script:
+#          - echo "Your security scan goes here..."
+#
+#    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+#    - step:
+#        name: 'Deployment to Staging'
+#        deployment: staging
+#        script:
+#          - echo "Your deployment to staging script goes here..."
+#    - step:
+#        name: 'Deployment to Production'
+#        deployment: production
+#        trigger: 'manual'
+#        script:
+#          - echo "Your deployment to production script goes here..."
+#
