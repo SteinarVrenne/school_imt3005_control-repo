@@ -10,7 +10,7 @@ pipelines:
         name: 'Build and Test'
         script:
           - apt update -y
-          - apt install puppet
+          - apt install puppet -y
     - step:
         name: 'Lint'
         script:
