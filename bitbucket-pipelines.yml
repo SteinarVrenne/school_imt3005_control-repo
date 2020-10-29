@@ -11,11 +11,11 @@ pipelines:
         script:
           - apt update -y
           - apt install puppet -y
-    - step:
-        name: 'Lint'
-        script:
-          - puppet-lint site-modules/*/manifests/*.pp
-          - puppet-lint manifests/site.pp
+#    - step:
+#        name: 'Lint'
+#        script:
+#          - puppet-lint site-modules/*/manifests/*.pp
+#          - puppet-lint manifests/site.pp
     - step:
         name: 'Validate'
         script:
