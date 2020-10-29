@@ -21,10 +21,11 @@ pipelines:
           - while [ "$i" -lt "5" ] && [ "$ret" -ne "0" ]; do wget -O "$tempdeb" https://apt.puppetlabs.com/puppet6-release-bionic.deb ; ret="$?" ; let "i++" ; done
           - if [ "$ret" -ne "0" ]; then exit 1003; fi
           - dpkg -i "$tempdeb"
+          - apt update -y
 #          - apt-get -y install puppetserver git pwgen
-          - which puppet
-#          - /opt/puppetlabs/bin/puppet --verion
-
+          - apt install puppetserver -y
+          - apt install puppet-lint -y
+          - /opt/puppetlabs/bin/puppet --version
 #    - step:
 #        name: 'Lint'
 #        script:
