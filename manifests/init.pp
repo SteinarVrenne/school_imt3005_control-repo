@@ -1,13 +1,13 @@
 class puppetdb (
-    $database_url = 'localhost:5432'
+    $database_url = 'localhost:5432',
 ){
     include '::postgresql'
 
-    postgresql::user{ 'puppetdb':
+    postgresql::user { 'puppetdb':
         password => '',
         before => Service['puppetdb'],
     }
-    postgresql::database{ 'puppetdb':
+    postgresql::database { 'puppetdb':
         owner => 'puppetdb',
         before => Service['puppetdb'],
     }
@@ -16,13 +16,14 @@ class puppetdb (
         before => Service['puppetdb'],
     }
 
-    package{ 'puppetdb':
+    package { 'puppetdb':
         ensure => 'present',
     }
-    package{ 'puppet-client-tools':
+    package { 'puppet-client-tools':
         ensure => 'present',
     }
-    file{ 'puppet_database.ini':
+
+    file { 'puppet_database.ini':
         ensure => file,
         path => '/etc/puppetlabs/puppetdb/conf.d/database.ini',
         content => epp('puppetdb/database.ini.epp'),
