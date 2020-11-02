@@ -27,4 +27,3 @@ class profile::webserver::server {
         require => Nodejs::Npm['serverapp'],
     }
 }
-# /home/ubuntu/website-repo/node_modules/.bin/webpack --mode production && /usr/bin/node src/server/index.js

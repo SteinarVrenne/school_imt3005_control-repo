@@ -3,9 +3,12 @@ node default {
 }
 
 node /srv[1-12]?/ {
-  include ::manifests::base_linux
-  include ::profile::consul::client
-  include ::profile::dns::client
+  # include ::manifests::base_linux
+  # include ::profile::consul::client
+  # include ::profile::dns::client
+
+  #Rather use Roles
+  include ::role::dockerhost
 }
 
 node 'manager.node.consul' {
