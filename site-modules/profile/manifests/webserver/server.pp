@@ -20,8 +20,8 @@ class profile::webserver::server {
         require => [ Vcsrepo['/home/ubuntu/website-repo'], Class['nodejs'] ],
     }
 
-    # Start the server 
-    exec { '/home/ubuntu/website-repo/node_modules/.bin/webpack --mode production && /usr/bin/node /home/ubuntu/website-repo/src/server/index.js':
+    # Pack the server and add a service file to control and manipulate server
+        exec { '/home/ubuntu/website-repo/node_modules/.bin/webpack --mode production && cp /home/ubuntu/website-repo/webapp.service /lib/systemd/system && systemctl daemon-reload && systemctl start webapp':
         path => '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ubuntu/website-repo/node_modules/.bin',
         user => 'root',
         require => Nodejs::Npm['serverapp'],
