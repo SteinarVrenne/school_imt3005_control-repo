@@ -4,5 +4,4 @@ class profile::docker::client {
     class { 'docker':
         version => 'latest',
     }
-
 }
