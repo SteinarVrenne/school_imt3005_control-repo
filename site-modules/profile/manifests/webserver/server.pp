@@ -1,7 +1,7 @@
 class profile::webserver::server {
-    # Download the repo 
+    # Download the repo and ensure the latest version of the file is always the case
     vcsrepo { '/home/ubuntu/website-repo':
-        ensure => present,
+        ensure => latest,
         provider => git,
         source => 'https://bitbucket.org/SteinarVrenne/website-repo.git',
         revision => 'master',
@@ -20,9 +20,9 @@ class profile::webserver::server {
         require => [ Vcsrepo['/home/ubuntu/website-repo'], Class['nodejs'] ],
     }
 
-    # Start the server 
-    exec { '/usr/bin/npm run build && /usr/bin/node src/server/index.js':
-        path => '/home/ubuntu/website-repo',
+    # Pack the server and add a service file to control and manipulate server
+        exec { '/home/ubuntu/website-repo/node_modules/.bin/webpack --mode production && cp /home/ubuntu/website-repo/webapp.service /lib/systemd/system && systemctl daemon-reload && systemctl start webapp':
+        path => '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ubuntu/website-repo/node_modules/.bin',
         user => 'root',
         require => Nodejs::Npm['serverapp'],
     }
