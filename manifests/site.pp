@@ -2,7 +2,7 @@ node default {
   notify { "Oops Default! I'm ${facts['hostname']}": }
 }
 
-node /srv[1-12]?/ {
+node /srv/d{1,2}+/ {
   include ::manifests::base_linux
   include ::profile::consul::client
   include ::profile::dns::client

@@ -35,7 +35,6 @@ mod 'puppetlabs-translate',   '2.0.0'
 mod 'saz-timezone',           '3.4.0'
 mod 'stm-debconf',            '2.3.0'
 mod 'zehweh-netplan',         '0.1.9'
-
 mod 'dns',
   git:    'https://github.com/ppouliot/puppet-dns',
   commit: 'ec588ed90bf64f97403170c7261944f86ccc16a3'
