@@ -21,9 +21,10 @@ class profile::webserver::server {
     }
 
     # Pack the server and add a service file to control and manipulate server
-        exec { '/home/ubuntu/website-repo/node_modules/.bin/webpack --mode production && cp /home/ubuntu/website-repo/webapp.service /lib/systemd/system && systemctl daemon-reload && systemctl start webapp':
+        exec { '/home/ubuntu/website-repo/node_modules/.bin/webpack --mode production && cp /home/ubuntu/website-repo/webapp.service /lib/systemd/system && systemctl daemon-reload && systemctl start webapp && systemctl enable webapp':
         path => '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:/home/ubuntu/website-repo/node_modules/.bin',
         user => 'root',
+        cwd => '/home/ubuntu/website-repo/',
         require => Nodejs::Npm['serverapp'],
     }
 }
