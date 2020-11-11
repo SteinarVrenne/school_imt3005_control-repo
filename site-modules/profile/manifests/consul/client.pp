@@ -12,10 +12,9 @@ class profile::consul::client {
           'retry_join'       => [ $::serverip ],
         },
       }
-
     }
 
-    /^(Debian|Ubuntu)$/: { 
+    /^(Debian|Ubuntu)$/: {
 
       package { 'unzip':
         ensure => latest,
@@ -32,12 +31,7 @@ class profile::consul::client {
         },
         require     => Package['unzip'],
       }
-
     }
-
     default: { notify { 'Which OS? WTF???': } }
-
   }
-
 }
-

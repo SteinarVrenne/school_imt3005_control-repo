@@ -2,13 +2,10 @@ node default {
   notify { "Oops Default! I'm ${facts['hostname']}": }
 }
 
-node /srv[1-12]?/ {
-  # include ::manifests::base_linux
-  # include ::profile::consul::client
-  # include ::profile::dns::client
-
-  #Rather use Roles
-  include ::role::dockerhost
+node /srv/d{1,2}+/ {
+  include ::manifests::base_linux
+  include ::profile::consul::client
+  include ::profile::dns::client
 }
 
 node 'manager.node.consul' {
