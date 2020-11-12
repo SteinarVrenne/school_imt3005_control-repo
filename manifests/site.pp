@@ -3,9 +3,7 @@ node default {
 }
 
 node /srv(1|2)?\d/ {
-  include ::manifests::base_linux
-  include ::profile::consul::client
-  include ::profile::dns::client
+  include ::role::host_machine
 }
 
 node 'manager.node.consul' {
