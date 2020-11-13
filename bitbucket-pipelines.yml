@@ -9,10 +9,17 @@ pipelines:
     - step:
         name: 'Build and validation of pp files'
         script:
-          - apt update -y
-          - apt install wget -y
-          - ls
           - export DEBIAN_FRONTEND=noninteractive
+          - apt update -yq
+          # shellcheck validation of scripts
+          - apt install shellcheck -yq
+          - shellcheck scripts/*.sh
+          - shellcheck scripts/kali/*.sh
+          - shellcheck scripts/kali/script/*.sh
+          - shellcheck scripts/kali/script/legacy/*.sh
+          - shellcheck scripts/lib/*.sh
+          # puppet validation
+          - apt install wget -yq
           - tempdeb=$(mktemp /tmp/debpackage.XXXXXXXXXXXXXXXXXX) || exit 1
           - i=0;
           - wget -O "$tempdeb" https://apt.puppetlabs.com/puppet6-release-bionic.deb
@@ -20,9 +27,9 @@ pipelines:
           - while [ "$i" -lt "5" ] && [ "$ret" -ne "0" ]; do wget -O "$tempdeb" https://apt.puppetlabs.com/puppet6-release-bionic.deb ; ret="$?" ; let "i++" ; done
           - if [ "$ret" -ne "0" ]; then exit 1003; fi
           - dpkg -i "$tempdeb"
-          - apt update -y
-          - apt install puppetserver -y
-          - apt install puppet-lint -y
+          - apt update -yq
+          - apt install puppetserver -yq
+          - apt install puppet-lint -yq
           - /opt/puppetlabs/bin/puppet --version
           # Lint
           #- which puppet-lint
