@@ -1,8 +1,4 @@
 ---
-base_windows::win_sw_pkg:
-          - 'less'
-          - 'git'
-          - 'vscode'
 base_linux::linux_sw_pkg:
           - 'htop'
           - 'sysstat'
