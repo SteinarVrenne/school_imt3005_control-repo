@@ -13,7 +13,6 @@ pipelines:
           - apt update -yq
           # shellcheck validation of scripts
           - apt install shellcheck -yq
-          - shellcheck scripts/*.sh
           - shellcheck scripts/kali/*.sh
           - shellcheck scripts/kali/script/*.sh
           - shellcheck scripts/kali/script/legacy/*.sh
