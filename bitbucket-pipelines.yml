@@ -16,7 +16,6 @@ pipelines:
           - shellcheck scripts/kali/*.sh
           - shellcheck -e SC2154 scripts/kali/script/*.sh
           - shellcheck scripts/kali/script/legacy/*.sh
-          - shellcheck scripts/lib/*.sh
           # puppet validation
           - apt install wget -yq
           - tempdeb=$(mktemp /tmp/debpackage.XXXXXXXXXXXXXXXXXX) || exit 1
