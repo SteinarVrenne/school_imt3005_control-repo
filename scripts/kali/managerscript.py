@@ -3,8 +3,7 @@
 import subprocess
 
 # Get srv1 IP
-server1ip = subprocess.getoutput('openstack server list | grep srv1 | awk '{print $9}'')
-server2ip = subprocess.getoutput('openstack server list | grep srv2 | awk '{print $9}'')
+allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
 
 # Get amount of containers in srv1
 containers = subprocess.getoutput('ssh ubuntu@' +str(server1ip)' -i gruppe4.pem docker ps -a | wc -l')
