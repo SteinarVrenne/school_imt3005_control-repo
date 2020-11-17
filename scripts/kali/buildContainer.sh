@@ -1,10 +1,15 @@
 #!/bin/bash
+docker pull haraldaarz/kali_xfce_vnc_top10
+docker build -t kali_base .
 
-#docker images > temp.txt
-#if [[ ( $(grep -E 'pentest|forensics|stego' temp.txt)) ]]; then
-#        echo hei
-#else
-#    echo "Not installed"
-    docker pull haraldaarz/kali_xfce_vnc_top10
+# Builds the pentest image
+docker build -t pentest ./images/pentest
 
-#fi
+# Builds the forensics image
+docker build -t forensics ./images/forensics
+
+
+# Builds the stego image
+docker build -t stego ./images/stego
+
+
