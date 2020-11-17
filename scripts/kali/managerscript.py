@@ -1,42 +1,49 @@
 #!/usr/bin/env python3
 
-import subprocess
+import subproces, time
 
-# Get srv1 IP
+# Get srv IP
 allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
 
 # Get amount of containers in srv1
-containers = []
-for i in allIp:
-    containers.append(subprocess.getoutput('ssh root@' +str(i)' docker ps -a | wc -l'))
+#containers = []
+#for i in allIp:
+#    containers.append(subprocess.getoutput('ssh root@' +str(i)' docker ps -a | wc -l'))
 
 # Number of the first ports used to run a docker container.
-port1 = 25901
-port2 = 25911
+
 # In order to run a container. It has to increment the port value by 1, and take in the kali variant parameter
 # runcontainer = subprocess.call('docker run -t -d --name kali4 -p' + str(port1++) +':5900 -p' + str(port2++) +':5901' kali #Kali should be "Pentest, Forensics or Stego"
 
-getports = str(subprocess.call("docker ps | awk '{print $10, $11}'", shell=True)).split("tcp")
+# getports = str(subprocess.call("docker ps | awk '{print $10, $11}'", shell=True)).split("tcp")
 
-def send_ip():
+def send_ip(vnc, flavor):
 port1 = 25901
 port2 = 25911
 ipadd = ""
+num = 1
+newMachine = True
     for i in allIp:
         ipadd = allIp[i]
         for j in range(1, 11):
-            port1 = int(str(subprocess.check_output("ssh root@10.212.143.30 docker port kali"+str(j)+" 5900", shell=True)).strip("0.0.0.0:"))
-            port2 = int(str(subprocess.check_output("ssh root@10.212.143.30 docker port kali"+str(j)+" 5901", shell=True)).strip("0.0.0.0:"))
+            port1 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5900", shell=True)).strip("0.0.0.0:"))
+            port2 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5901", shell=True)).strip("0.0.0.0:"))
             val = subprocess.call("ssh root@" +str(i)" docker port kali"+str(j)+" 5900", shell=True)
             if val == "1":
+                newMachine = False
+                var = j
                 break
-        
-    port1 += 1
-    port2 += 1
-    print("ipadd:"+str(port2))
-
-# Start a new machine
-newmachine = subprocess.run('blablabla start srv3...')
+    if newMachine == True:
+        # Start a new machine
+        newmachine = subprocess.run('blablabla start srv3...')
+        sleep(10)
+        allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
+        print(str(allip[-1])+":"+str(port2))
+    else:
+        port1 += 1
+        port2 += 1
+        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd=$arg1 -e flavour=$arg2 -p "+str(port1)+":5900 -p "+str(port2)+":5901 kali", shell=True)
+        print(ipadd+":"+str(port2))
 
 
 
