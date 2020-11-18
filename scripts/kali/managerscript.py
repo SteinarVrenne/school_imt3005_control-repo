@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import subproces, time
+import subproces, time, sys
 
 # Get srv IP
 allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
@@ -38,11 +38,12 @@ newMachine = True
         newmachine = subprocess.run('blablabla start srv3...')
         sleep(10)
         allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
+        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -e flavour="+flavor+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 kali", shell=True)
         print(str(allip[-1])+":"+str(port2))
     else:
         port1 += 1
         port2 += 1
-        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd=$arg1 -e flavour=$arg2 -p "+str(port1)+":5900 -p "+str(port2)+":5901 kali", shell=True)
+        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -e flavour="+flavor+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 kali", shell=True)
         print(ipadd+":"+str(port2))
 
 
@@ -63,6 +64,8 @@ else:
      containers = subprocess.getoutput('ssh ubuntu@' +str(server2ip)' -i gruppe4.pem docker ps -a | wc -l')
 
 
+if __name__ == __main__:
+    send_ip(str(sys.argv[1]), str(sys.argv[2]))
 
 # Print ut ip adressen til den nye maskinen som er laget, slik at web serveren kan hente dette via standard in/out
 # echo laget dockercontainers ip:port
