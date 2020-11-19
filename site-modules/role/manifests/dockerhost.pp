@@ -4,4 +4,5 @@ class role::dockerhost {
   include ::profile::dns::client
   include ::profile::docker::client
   include ::profile::dockerhost::scripts
+  include ::profile::dockerHost::images
 }
