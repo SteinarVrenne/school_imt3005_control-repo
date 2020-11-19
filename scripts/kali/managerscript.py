@@ -16,19 +16,24 @@ def send_ip(vnc, flavor):
     port1 = 25901
     port2 = 25911
     num = 1
+    leaveLoop = False
     newMachine = True
     for i in allIp:
         ipadd = str(i)
         for j in range(1, 11):
             try:
+                num+=1
                 port1 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5900", shell=True)).strip("0.0.0.0:"))
                 port2 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5901", shell=True)).strip("0.0.0.0:"))
                 val = subprocess.call("ssh root@" +str(i)+" docker port kali"+str(j)+" 5900", shell=True)
-                num+=1
             except:
                 print("test")
                 newMachine = False
+                leaveLoop = True
+                
+            if leaveLoop == True:
                 break
+
     if newMachine == True:
         # Start a new machine
         subprocess.call('../newHostMachine.sh')
@@ -43,7 +48,6 @@ def send_ip(vnc, flavor):
         print(ipadd+":"+str(port2))
 
 if __name__ == "__main__":
-    print(str(sys.argv[1]), str(sys.argv[2]))
     send_ip(str(sys.argv[1]), str(sys.argv[2]))
 
 
