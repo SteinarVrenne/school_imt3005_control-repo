@@ -14,11 +14,11 @@ allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").
 # echo laget dockercontainers ip:port
 
 def send_ip(vnc, flavor):
-port1 = 25901
-port2 = 25911
-ipadd = ""
-num = 1
-newMachine = True
+    port1 = 25901
+    port2 = 25911
+    ipadd = ""
+    num = 1
+    newMachine = True
     for i in allIp:
         ipadd = allIp[i]
         for j in range(1, 11):
