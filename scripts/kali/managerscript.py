@@ -30,21 +30,24 @@ def send_ip(vnc, flavor):
                 print("test")
                 newMachine = False
                 leaveLoop = True
-                
-            if leaveLoop == True:
                 break
+                
+        if leaveLoop == True:
+            print("Leaving loop")
+            break
 
     if newMachine == True:
         # Start a new machine
         subprocess.call('../newHostMachine.sh')
         sleep(10)
         allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
-        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
+        subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
         print(str(allip[-1])+":"+str(port2))
     else:
         port1 += 1
         port2 += 1
-        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
+        print("pwd")
+        subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
         print(ipadd+":"+str(port2))
 
 if __name__ == "__main__":
