@@ -1,4 +1,4 @@
-class profile::dockerhost::scripts {
+class profile::dockerHost::scripts {
 
     # Ensure buildContainer.sh is on the servers and run it once
     file { '/root/buildContainer.sh': 
