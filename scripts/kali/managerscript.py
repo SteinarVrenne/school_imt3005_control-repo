@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
-import subproces, time, sys
+import subprocess, time, sys
 
 # Get srv IP
-allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
+allIp = str(subprocess.check_output('./script/getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
 
 # Number of the first ports used to run a docker container.
 
@@ -24,7 +24,7 @@ def send_ip(vnc, flavor):
         for j in range(1, 11):
             port1 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5900", shell=True)).strip("0.0.0.0:"))
             port2 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5901", shell=True)).strip("0.0.0.0:"))
-            val = subprocess.call("ssh root@" +str(i)" docker port kali"+str(j)+" 5900", shell=True)
+            val = subprocess.call("ssh root@" +str(i)+" docker port kali"+str(j)+" 5900", shell=True)
             if val == "1":
                 newMachine = False
                 var = j
@@ -34,12 +34,12 @@ def send_ip(vnc, flavor):
         subprocess.call('../newHostMachine.sh')
         sleep(10)
         allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
-        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -e flavour="+flavor+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 kali", shell=True)
+        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
         print(str(allip[-1])+":"+str(port2))
     else:
         port1 += 1
         port2 += 1
-        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -e flavour="+flavor+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 kali", shell=True)
+        subprocess.call("docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
         print(ipadd+":"+str(port2))
 
 if __name__ == __main__:
