@@ -1,5 +1,5 @@
 # Class moving image files to dockerHosts
-class profile::dockerHost::images {
+class profile::dockerhost::images {
 
   # Directory
   file { '/root/dockerImages':
