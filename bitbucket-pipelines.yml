@@ -16,6 +16,9 @@ pipelines:
           - shellcheck scripts/kali/*.sh
           - shellcheck -e SC2154 scripts/kali/script/*.sh
           - shellcheck scripts/kali/script/legacy/*.sh
+          # Python Lint
+          - apt install python -yq
+          - python -m py_compile ./scripts/kali/*.py
           # puppet validation
           - apt install wget -yq
           - tempdeb=$(mktemp /tmp/debpackage.XXXXXXXXXXXXXXXXXX) || exit 1
