@@ -22,23 +22,21 @@ def send_ip(vnc, flavor):
         ipadd = str(i)
         for j in range(1, 11):
             try:
-                num+=1
                 port1 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5900", shell=True)).strip("0.0.0.0:"))
                 port2 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5901", shell=True)).strip("0.0.0.0:"))
-                val = subprocess.call("ssh root@" +str(i)+" docker port kali"+str(j)+" 5900", shell=True)
+                val = subprocess.call("ssh root@" +ipadd+" docker port kali"+str(j)+" 5900", shell=True)
+                num+=1
             except:
-                print("test")
                 newMachine = False
                 leaveLoop = True
                 break
-                
+
         if leaveLoop == True:
-            print("Leaving loop")
             break
 
     if newMachine == True:
         # Start a new machine
-        subprocess.call('../newHostMachine.sh')
+        subprocess.call('../newHostMachine.sh srv'+str(len(allIp)+1), shell=True)
         sleep(10)
         allIp = str(subprocess.check_output('./getips.sh')).lstrip("b'").rstrip("\\n'").split(",")
         subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
@@ -46,11 +44,9 @@ def send_ip(vnc, flavor):
     else:
         port1 += 1
         port2 += 1
-        print("pwd")
         subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
         print(ipadd+":"+str(port2))
 
 if __name__ == "__main__":
+    subprocess.call("source /root/openRC.sh", shell=True)
     send_ip(str(sys.argv[1]), str(sys.argv[2]))
-
-
