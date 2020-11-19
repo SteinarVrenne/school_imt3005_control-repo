@@ -48,5 +48,4 @@ def send_ip(vnc, flavor):
         print(ipadd+":"+str(port2))
 
 if __name__ == "__main__":
-    subprocess.call("source /root/openRC.sh", shell=True)
     send_ip(str(sys.argv[1]), str(sys.argv[2]))
