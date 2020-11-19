@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 var=$(openstack server list | grep srv | awk '{print $9}')
 prefix="iac_admin_net="
 suffix=","
