@@ -1,5 +1,5 @@
 #!/bin/bash
-source /root/openRC.sh
+source /home/ubuntu/openRC.sh
 var=$(openstack server list | grep srv | awk '{print $9}')
 prefix="iac_admin_net="
 suffix=","
