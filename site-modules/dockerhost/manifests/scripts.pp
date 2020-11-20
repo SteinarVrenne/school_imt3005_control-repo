@@ -1,5 +1,6 @@
 class dockerhost::scripts {
 
+    require dockerhost::images
     # Ensure buildContainer.sh is on the servers and run it once
     file { '/root/buildContainer.sh':
         source => "puppet:///modules/dockerhost/buildContainer.sh",
