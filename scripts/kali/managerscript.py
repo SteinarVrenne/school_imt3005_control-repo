@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-import subprocess, time, sys
+import subprocess, sys
+from time import sleep
 
 # Number of the first ports used to run a docker container.
 
@@ -26,7 +27,7 @@ def send_ip(vnc, flavor):
                 port2 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5901", shell=True)).strip("0.0.0.0:"))
                 val = subprocess.call("ssh root@" +ipadd+" docker port kali"+str(j)+" 5900", shell=True)
                 num+=1
-                if j == 9:
+                if j == 10:
                     newMachine = False
             except:
                 leaveLoop = True
