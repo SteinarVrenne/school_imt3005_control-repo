@@ -7,16 +7,31 @@ class dockerhost::images {
     mode   => '0664',
   }
 
+  file { '/root/images/forensics':
+    ensure => 'directory',
+    mode   => '0664',
+  }
+
   file { '/root/images/forensics/Dockerfile':
     ensure => 'present',
     mode   => '0664',
     source => 'puppet:///modules/dockerhost/images/forensics/Dockerfile',
   }
 
+  file { '/root/images/stego':
+    ensure => 'directory',
+    mode   => '0664',
+  }
+
   file { '/root/images/stego/Dockerfile':
     ensure => 'present',
     mode   => '0664',
     source => 'puppet:///modules/dockerhost/images/stego/Dockerfile',
+  }
+
+  file { '/root/images/pentest':
+    ensure => 'directory',
+    mode   => '0664',
   }
 
   file { '/root/images/pentest/Dockerfile':
