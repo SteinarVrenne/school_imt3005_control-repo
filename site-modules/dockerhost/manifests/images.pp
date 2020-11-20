@@ -7,9 +7,15 @@ class dockerhost::images {
     mode   => '0664',
   }
 
-  file { '/root/images/forensics':
+  file { '/root/images/kali_base':
     ensure => 'directory',
     mode   => '0664',
+  }
+
+  file { '/root/images/kali_base/Dockerfile':
+    ensure => 'present',
+    mode   => '0664',
+    source => 'puppet:///modules/dockerhost/images/kali_base/Dockerfile',
   }
 
   file { '/root/images/forensics':
