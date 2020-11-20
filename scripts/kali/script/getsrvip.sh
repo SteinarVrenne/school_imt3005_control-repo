@@ -1,6 +1,6 @@
 #!/bin/bash
-var=$(openstack server list | grep srv | awk '{print $9}')
 source /root/openRC.sh
+var=$(openstack server list | grep srv | awk '{print $9}')
 prefix="iac_admin_net="
 suffix=","
 for i in $var 
