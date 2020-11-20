@@ -10,6 +10,6 @@ class dockerhost::scripts {
         path => '/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin',
         user => 'root',
         cwd => '/root/',
-        subscribe => File['/root/images/kali_base/Dockerfile'],
+        subscribe => [ File['/root/images/kali_base/Dockerfile'], File['/root/buildContainer.sh'] ]
     }
 }
