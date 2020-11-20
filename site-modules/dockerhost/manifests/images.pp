@@ -10,18 +10,18 @@ class dockerhost::images {
   file { '/root/images/forensics/Dockerfile':
     ensure => 'present',
     mode   => '0664',
-    source => 'puppet:///scripts/kali/images/forensics/Dockerfile',
+    source => 'puppet:///modules/dockerhost/images/forensics/Dockerfile',
   }
 
   file { '/root/images/stego/Dockerfile':
     ensure => 'present',
     mode   => '0664',
-    source => 'puppet:///scripts/kali/images/stego/Dockerfile',
+    source => 'puppet:///modules/dockerhost/images/stego/Dockerfile',
   }
 
   file { '/root/images/pentest/Dockerfile':
     ensure => 'present',
     mode   => '0664',
-    source => 'puppet:///scripts/kali/images/pentest/Dockerfile',
+    source => 'puppet:///modules/dockerhost/pentest/Dockerfile',
   }
 }
