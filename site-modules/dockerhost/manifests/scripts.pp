@@ -13,4 +13,3 @@ class dockerhost::scripts {
         require => [ File['/root/dockerImages/pentest/Dockerfile'], File['/root/buildContainer.sh'] ]
     }
 }
-/etc/puppetlabs/code/environments/production
