@@ -12,6 +12,11 @@ class dockerhost::images {
     mode   => '0664',
   }
 
+  file { '/root/images/forensics':
+    ensure => 'directory',
+    mode   => '0664',
+  }
+
   file { '/root/images/forensics/Dockerfile':
     ensure => 'present',
     mode   => '0664',
@@ -37,6 +42,6 @@ class dockerhost::images {
   file { '/root/images/pentest/Dockerfile':
     ensure => 'present',
     mode   => '0664',
-    source => 'puppet:///modules/dockerhost/pentest/Dockerfile',
+    source => 'puppet:///modules/dockerhost/images/pentest/Dockerfile',
   }
 }
