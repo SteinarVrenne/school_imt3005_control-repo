@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import subprocess, time, sys
 
@@ -12,7 +12,7 @@ import subprocess, time, sys
 
 def send_ip(vnc, flavor):
     # Get srv IP
-    allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh')).lstrip("b'").rstrip("\\n'").split(",")
+    allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\\n'").split(",")
     port1 = 25901
     port2 = 25911
     num = 1
