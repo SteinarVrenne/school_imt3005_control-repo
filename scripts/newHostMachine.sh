@@ -2,6 +2,12 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+# Break if no input arguments
+if [[ $# -eq 0 ]] ; then
+    echo 'Missing server name!!!!!'
+    exit 1
+fi
+
 # Source the config file
 source /etc/puppetlabs/code/environments/production/scripts/iac_variables.conf
 
@@ -12,3 +18,13 @@ command='openstack server create --image "'$image'" --flavor "'$flavor'" --secur
 # echo $command
 
 eval $command
+
+openstack floating ip create ntnu-internal
+
+findFloatingIP=$(openstack floating ip list | grep None | awk '{print $4}' | head -1)
+
+addFloatingIP='openstack server add floating ip '$1' '$findFloatingIP
+
+# echo $addFloatingIP
+
+eval $addFloatingIP
