@@ -18,7 +18,7 @@ def send_ip(vnc, flavor):
     # Get srv IP
     allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\\n'").split(",")
     leaveLoop = False
-    newMachine = False
+    newMachine = True
     for i in allIp:
         port1 = 25901
         port2 = 25911
@@ -30,13 +30,11 @@ def send_ip(vnc, flavor):
                 port2 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5901", shell=True)).strip("0.0.0.0:"))
                 val = subprocess.call("ssh root@" +ipadd+" docker port kali"+str(j)+" 5900", shell=True)
                 num+=1
-                if j == 10:
-                    newMachine = True
             except:
                 leaveLoop = True
                 break
-
         if leaveLoop == True:
+            newMachine = False
             break
 
     if newMachine == True:
