@@ -1,8 +1,8 @@
-class profile::dockerhost::scripts {
+class dockerhost::scripts {
 
     # Ensure buildContainer.sh is on the servers and run it once
     file { '/root/buildContainer.sh':
-        source => "puppet:///scripts/kali/buildContainer.sh",
+        source => "puppet:///modules/dockerhost/buildContainer.sh",
         mode => "0755",
     }
 
@@ -12,7 +12,5 @@ class profile::dockerhost::scripts {
         cwd => '/root/',
         require => [ File['/root/dockerImages/pentest/Dockerfile'], File['/root/buildContainer.sh'] ]
     }
-
-
 }
 /etc/puppetlabs/code/environments/production
