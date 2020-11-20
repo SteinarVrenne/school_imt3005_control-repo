@@ -1,4 +1,4 @@
-class profile::dockerhost::scripts {
+class dockerhost::scripts {
 
     # Ensure buildContainer.sh is on the servers and run it once
     file { '/root/buildContainer.sh':
@@ -12,6 +12,4 @@ class profile::dockerhost::scripts {
         cwd => '/root/',
         subscribe => File['/root/dockerImages/pentest/Dockerfile'],
     }
-
-
 }

@@ -1,25 +1,25 @@
 # Class moving image files to dockerHosts
-class profile::dockerhost::images {
+class dockerhost::images {
 
   # Directory
-  file { '/root/dockerImages':
+  file { '/root/images':
     ensure => 'directory',
     mode   => '0664',
   }
 
-  file { '/root/dockerImages/forensics/Dockerfile':
+  file { '/root/images/forensics/Dockerfile':
     ensure => 'present',
     mode   => '0664',
     source => 'puppet:///scripts/kali/images/forensics/Dockerfile',
   }
 
-  file { '/root/dockerImages/stego/Dockerfile':
+  file { '/root/images/stego/Dockerfile':
     ensure => 'present',
     mode   => '0664',
     source => 'puppet:///scripts/kali/images/stego/Dockerfile',
   }
 
-  file { '/root/dockerImages/pentest/Dockerfile':
+  file { '/root/images/pentest/Dockerfile':
     ensure => 'present',
     mode   => '0664',
     source => 'puppet:///scripts/kali/images/pentest/Dockerfile',
