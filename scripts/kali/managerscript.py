@@ -18,7 +18,7 @@ def send_ip(vnc, flavor):
     port2 = 25911
     num = 1
     leaveLoop = False
-    newMachine = True
+    newMachine = False
     for i in allIp:
         ipadd = str(i)
         for j in range(1, 11):
@@ -28,7 +28,7 @@ def send_ip(vnc, flavor):
                 val = subprocess.call("ssh root@" +ipadd+" docker port kali"+str(j)+" 5900", shell=True)
                 num+=1
                 if j == 10:
-                    newMachine = False
+                    newMachine = True
             except:
                 leaveLoop = True
                 break
