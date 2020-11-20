@@ -11,4 +11,4 @@ webip=$(openstack server list | grep web | awk '{print $9}')
 ssh -oStrictHostKeyChecking=no root@$webip "ssh-keygen -q -N '' -f /root/.ssh/id_rsa"
 
 # cat the file contents and add to ubuntu's authorized key on manager
-ssh root@$webip "cat /root/.ssh/id_rsa.pub" >> /home/ubuntu/.ssh/authorized_keys
+ssh root@$webip "cat /root/.ssh/id_rsa.pub" >> /root/.ssh/authorized_keys
