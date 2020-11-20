@@ -10,16 +10,19 @@ from time import sleep
 
 # Print ut ip adressen til den nye maskinen som er laget, slik at web serveren kan hente dette via standard in/out
 # echo laget dockercontainers ip:port
+def start_new_container(port1, port2, ipadd, num, vnc, flavor):
+    subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
+    print(ipadd+":"+str(port2))
 
 def send_ip(vnc, flavor):
     # Get srv IP
     allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\\n'").split(",")
-    port1 = 25901
-    port2 = 25911
-    num = 1
     leaveLoop = False
     newMachine = False
     for i in allIp:
+        port1 = 25901
+        port2 = 25911
+        num = 1
         ipadd = str(i)
         for j in range(1, 11):
             try:
@@ -41,13 +44,10 @@ def send_ip(vnc, flavor):
         subprocess.call('bash /etc/puppetlabs/code/environments/production/scripts/newHostMachine.sh srv'+str(len(allIp)+1), shell=True)
         sleep(10)
         allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh')).lstrip("b'").rstrip("\\n'").split(",")
-        subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
-        #print(str(allip[-1])+":"+str(port2))
+        start_new_container(port1, port2, str(allip[-1], num, vnc, flavor)
     else:
-        port1 += 1
-        port2 += 1
-        subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
-        print(ipadd+":"+str(port2))
+        start_new_container((port1 += 1),(port2 += 1), ipadd, num, vnc, flavor)
+    
 
 if __name__ == "__main__":
     send_ip(str(sys.argv[1]), str(sys.argv[2]))
