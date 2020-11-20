@@ -3,7 +3,7 @@
 export DEBIAN_FRONTEND=noninteractive
 
 # Source the config file
-source ./iac_variables.conf
+source /etc/puppetlabs/code/environments/production/scripts/iac_variables.conf
 
 source /root/openRC.sh
 
