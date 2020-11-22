@@ -13,7 +13,7 @@ from time import sleep
 def start_new_container(port1, port2, ipadd, num, vnc, flavor):
     port1 += 1
     port2 += 1
-    subprocess.call("ssh root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
+    subprocess.call("ssh -o StrictHostKeyChecking=no root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
     print(ipadd+":"+str(port2))
 
 def send_ip(vnc, flavor):
@@ -27,7 +27,7 @@ def send_ip(vnc, flavor):
         ipadd = str(i)
         for j in range(1, 11):
             try:
-                port1 = int(str(subprocess.check_output("ssh root@"+ipadd+" docker port kali"+str(j)+" 5900", shell=True)).strip("0.0.0.0:"))
+                port1 = int(str(subprocess.check_output("ssh -o StrictHostKeyChecking=no root@"+ipadd+" docker port kali"+str(j)+" 5900", shell=True)).strip("0.0.0.0:"))
                 port2 = port1 + 10
                 num+=1
             except:
