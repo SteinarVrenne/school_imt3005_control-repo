@@ -1,6 +1,6 @@
 #!/bin/bash
 docker pull haraldaarz/kali_xfce_vnc_top10
-docker build -t kali_base ./images/kali_base
+docker build -t kali_base -f ../images/kali_base/Dockerfile .
 
 # Builds the pentest image
 docker build -t pentest ./images/pentest

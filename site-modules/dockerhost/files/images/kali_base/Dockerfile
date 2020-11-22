@@ -14,15 +14,13 @@ RUN apt install -y expect
 #TODO: Start VNC
 
 #Sets the vnc password
-ADD /script/vncpasswd.sh /
+ADD /vncpasswd.sh /
 RUN chmod +x /vncpasswd.sh
 ENTRYPOINT /vncpasswd.sh
 
 
 # Runs VNC server and client
-ADD /script/vnc.sh /
+ADD /vnc.sh /
 RUN chmod +x /vnc.sh
 
 ENTRYPOINT /vnc.sh
-
-
