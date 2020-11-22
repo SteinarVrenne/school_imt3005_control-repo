@@ -42,7 +42,7 @@ def send_ip(vnc, flavor):
         # Start a new machine
         start_new_container(port1, port2, ipadd, num, vnc, flavor)
         subprocess.call('bash /etc/puppetlabs/code/environments/production/scripts/newHostMachine.sh srv'+str(len(allIp)+1), shell=True)
-        allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",")
+        allIp.append(str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",")[1])
     else:
         start_new_container(port1,port2, ipadd, num, vnc, flavor)
     
