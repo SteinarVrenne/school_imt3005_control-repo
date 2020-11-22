@@ -19,7 +19,7 @@ def send_ip(vnc, flavor):
     allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",")
     print(allIp)
     leaveLoop = False
-    newMachine = True
+    newMachine = False
     for i in allIp:
         port1 = 25901
         port2 = 25911
