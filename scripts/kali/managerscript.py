@@ -18,7 +18,8 @@ def start_new_container(port1, port2, ipadd, num, vnc, flavor):
 
 def send_ip(vnc, flavor):
     # Get srv IP
-    allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",")
+    allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",").reverse()
+    allIp.sort(reverse=True)
     leaveLoop = False
     newMachine = False
     for i in allIp:
@@ -44,7 +45,6 @@ def send_ip(vnc, flavor):
         subprocess.call('bash /etc/puppetlabs/code/environments/production/scripts/newHostMachine.sh srv'+str(len(allIp)+1), shell=True)
         var = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",")[0]
         allIp.append(var)
-        print(allIp)
     else:
         start_new_container(port1,port2, ipadd, num, vnc, flavor)
     
