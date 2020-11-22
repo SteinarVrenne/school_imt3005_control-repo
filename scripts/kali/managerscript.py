@@ -33,9 +33,10 @@ def send_ip(vnc, flavor):
                 num+=1
             except:
                 leaveLoop = True
+                if j == 10:
+                    newMachine = True
                 break
         if leaveLoop == True:
-            newMachine = False
             break
 
     if newMachine == True:
