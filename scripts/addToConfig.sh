@@ -7,7 +7,7 @@ export DEBIAN_FRONTEND=noninteractive
 source /root/openRC.sh
 
 # Touch the file to create it if it does not exist
-touch ./iac_variables.conf
+touch /etc/puppetlabs/code/environments/production/scripts/iac_variables.conf
 
 # Automatically added by the HEAT repo, should not be changed
 linuxSecGroup=$(openstack security group list | grep project-sec_group_linux | awk '{print $4}' )
@@ -25,4 +25,4 @@ image="Ubuntu Server 18.04 LTS (Bionic Beaver) amd64"
 # Default flavor of container host machines. Can and should be changed depending on allotted resources
 flavor="m1.large"
 
-declare -p linuxSecGroup iacSecGroup networkname keyname image flavor > ./iac_variables.conf
+declare -p linuxSecGroup iacSecGroup networkname keyname image flavor > /etc/puppetlabs/code/environments/production/scripts/iac_variables.conf
