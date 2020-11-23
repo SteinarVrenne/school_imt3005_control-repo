@@ -24,6 +24,7 @@ def send_ip(vnc, flavor):
     newMachine = False
     for i in allIp:
         port1 = 25900
+        port2 = 25910
         num = 1
         ipadd = str(i)
         for j in range(1, 11):
@@ -47,6 +48,6 @@ def send_ip(vnc, flavor):
         allIp.append(var)
     else:
         start_new_container(port1,port2, ipadd, num, vnc, flavor)
-    
+
 if __name__ == "__main__":
     send_ip(str(sys.argv[1]), str(sys.argv[2]))
