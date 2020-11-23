@@ -1,9 +1,13 @@
 #!/bin/bash -v
+# CREATES a config file. Edit variables here for your own named keys other variables you want to change
 
 export DEBIAN_FRONTEND=noninteractive
 
 # Source the .rc file
 source /root/openRC.sh
+
+# Touch the file to create it if it does not exist
+touch ./iac_variables.conf
 
 # Automatically added by the HEAT repo, should not be changed
 linuxSecGroup=$(openstack security group list | grep project-sec_group_linux | awk '{print $4}' )
