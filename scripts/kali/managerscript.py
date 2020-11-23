@@ -14,11 +14,12 @@ def start_new_container(port1, port2, ipadd, num, vnc, flavor):
     port1 += 1
     port2 += 1
     subprocess.call("ssh -o StrictHostKeyChecking=no root@" +ipadd+" docker run -t -d --name kali"+str(num)+" -e vnc_passwd="+vnc+" -p "+str(port1)+":5900 -p "+str(port2)+":5901 "+flavor, shell=True)
+    sleep(2)
     print(ipadd+":"+str(port2))
 
 def send_ip(vnc, flavor):
     # Get srv IP
-    allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh > /dev/null', shell=True)).lstrip("b'").rstrip("\n'").split(",")
+    allIp = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",")
     allIp.sort(reverse=True)
     leaveLoop = False
     newMachine = False
@@ -44,7 +45,7 @@ def send_ip(vnc, flavor):
         # Start a new machine
         start_new_container(port1, port2, ipadd, num, vnc, flavor)
         subprocess.call('bash /etc/puppetlabs/code/environments/production/scripts/newHostMachine.sh srv'+str(len(allIp)+1) + ' > /dev/null', shell=True)
-        var = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh > /dev/null', shell=True)).lstrip("b'").rstrip("\n'").split(",")[0]
+        var = str(subprocess.check_output('bash /etc/puppetlabs/code/environments/production/scripts/kali/script/getsrvip.sh', shell=True)).lstrip("b'").rstrip("\n'").split(",")[0]
         allIp.append(var)
     else:
         start_new_container(port1,port2, ipadd, num, vnc, flavor)
