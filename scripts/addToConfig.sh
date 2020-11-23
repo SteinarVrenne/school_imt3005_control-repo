@@ -2,6 +2,9 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+# Source the .rc file
+source /root/openRC.sh
+
 # Automatically added by the HEAT repo, should not be changed
 linuxSecGroup=$(openstack security group list | grep project-sec_group_linux | awk '{print $4}' )
 
