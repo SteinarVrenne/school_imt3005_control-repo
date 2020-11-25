@@ -2,7 +2,7 @@ node default {
   notify { "Oops Default! I'm ${facts['hostname']}": }
 }
 
-node /srv(1|2)?\d/ {
+node /srv\d+/ {
   include ::role::dockerhost
 }
 
